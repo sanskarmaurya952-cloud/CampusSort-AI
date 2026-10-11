@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#0b3d2e" />
+  <title>CampusSort AI — Smart Waste Classification</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css" />
+  <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@latest/dist/tf.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@teachablemachine/image@latest/dist/teachablemachine-image.min.js"></script>
+</head>
+<body>
+  <nav class="nav">
+    <a class="brand" href="#"><span class="brand-mark">↻</span><span>CampusSort <b>AI</b></span></a>
+    <span class="nav-tag"><span class="live-dot"></span> ML-powered prototype</span>
+  </nav>
+
+  <main>
+    <section class="hero">
+      <div class="eyebrow"><span>♻</span> SMARTER CAMPUSES, LESS WASTE</div>
+      <h1>Waste less.<br><span>Sort smarter.</span></h1>
+      <p class="hero-copy">Upload a photo of a waste item. CampusSort AI uses a trained image-classification model to suggest a category and a responsible next step.</p>
+      <div class="hero-pills"><span>Image classification</span><span>Browser-based inference</span><span>Built for campus awareness</span></div>
+    </section>
+
+    <section class="workspace">
+      <div class="panel upload-panel">
+        <div class="panel-heading">
+          <div><div class="step">STEP 01</div><h2>Choose a waste image</h2></div>
+          <span class="icon-bubble">↑</span>
+        </div>
+        <p class="muted">Use a clear photo with one main item in the frame.</p>
+        <label class="dropzone" id="dropzone" for="imageInput">
+          <input id="imageInput" type="file" accept="image/*" />
+          <div id="emptyState" class="empty-state">
+            <div class="upload-icon">↑</div>
+            <strong>Drop an image here</strong>
+            <span>or click to browse · JPG, PNG, WEBP</span>
+          </div>
+          <img id="preview" alt="Selected waste item preview" hidden />
+          <span id="changePhoto" class="change-photo" hidden>Choose another image</span>
+        </label>
+        <div class="button-row">
+          <button id="predictBtn" class="btn btn-primary" disabled>Analyze waste <span>→</span></button>
+          <button id="resetBtn" class="btn btn-secondary" type="button">Reset</button>
+        </div>
+        <div id="modelStatus" class="status status-loading"><span class="status-dot"></span><span>Loading your trained model…</span></div>
+      </div>
+
+      <div class="panel result-panel">
+        <div class="panel-heading">
+          <div><div class="step">STEP 02</div><h2>AI classification</h2></div>
+          <span class="icon-bubble">✳</span>
+        </div>
+        <div id="resultEmpty" class="result-empty">
+          <div class="scan-illustration"><span>✳</span><i></i><b></b></div>
+          <h3>Your result will appear here</h3>
+          <p>Choose an image, then run the trained model to see its prediction and confidence score.</p>
+        </div>
+        <div id="resultContent" hidden>
+          <div class="result-topline"><span class="result-label">PREDICTED CATEGORY</span><span id="confidencePill" class="confidence">—</span></div>
+          <div class="category-line"><span id="categoryIcon" class="category-icon">♻</span><div><h3 id="categoryName">—</h3><p id="categorySubtitle">Model prediction</p></div></div>
+          <div class="confidence-label"><span>Model confidence</span><strong id="confidenceText">—</strong></div>
+          <div class="meter"><div id="confidenceBar"></div></div>
+          <div class="advice-box"><span class="advice-icon">✓</span><div><strong>Suggested next step</strong><p id="adviceText">—</p></div></div>
+          <div class="all-predictions"><h4>Other model predictions</h4><div id="predictionList"></div></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="category-section">
+      <div class="section-title"><div><div class="step">THE FOUR CLASSES</div><h2>Know where it belongs.</h2></div><p>Follow local waste rules. Packaging and contamination can change the correct disposal route.</p></div>
+      <div class="category-grid">
+        <article class="category-card"><div class="cat-symbol plastic">P</div><h3>Plastic</h3><p>Empty bottles and suitable plastic packaging. Rinse where required by local rules.</p></article>
+        <article class="category-card"><div class="cat-symbol paper">Pa</div><h3>Paper</h3><p>Clean, dry paper and cardboard are commonly recyclable. Keep greasy paper separate.</p></article>
+        <article class="category-card"><div class="cat-symbol metal">M</div><h3>Metal</h3><p>Empty cans and metal containers may be recyclable through local collection.</p></article>
+        <article class="category-card"><div class="cat-symbol organic">O</div><h3>Organic</h3><p>Fruit peels and suitable food scraps may go to a compost or wet-waste stream.</p></article>
+      </div>
+    </section>
+
+    <section class="note"><span>ⓘ</span><p><strong>Prototype note:</strong> This is an educational classifier, not a certified waste-management system. Predictions depend on the training data and can be wrong. Verify disposal rules with your campus or local authority.</p></section>
+  </main>
+
+  <footer><a class="brand" href="#"><span class="brand-mark">↻</span><span>CampusSort <b>AI</b></span></a><span>Built for cleaner campus habits · ML demo</span></footer>
+  <script src="script.js"></script>
+</body>
+</html>
